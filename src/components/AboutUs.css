@@ -1,0 +1,25 @@
+.white-box {
+    background-color: #fff; /* White background for the box */
+    border: 1px solid #ddd; /* Light gray border */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for the box */
+    padding: 20px; /* Padding inside the box */
+  }
+  
+  .white-box h2 {
+    margin-bottom: 20px; /* Space below the heading */
+    color: #333; /* Dark gray color for the heading */
+  }
+  
+  .white-box p {
+    color: #555; /* Medium gray color for the paragraph text */
+  }
+  
+  .container {
+    margin-top: 50px; /* Margin from top for spacing */
+  }
+  
+  .min-vh-100 {
+    min-height: 100vh; /* Ensure container takes full viewport height */
+  }
+  

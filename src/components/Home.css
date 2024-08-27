@@ -1,0 +1,22 @@
+.search-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    margin-bottom: 20px; /* Space below the search box */
+  }
+  
+  .search-box {
+    width: 50%; /* Adjust the width as needed */
+    max-width: 600px; /* Set a maximum width to prevent it from becoming too large */
+  }
+  
+  .search-box input {
+    width: 100%; /* Full width of the search box container */
+    padding: 10px; /* Add padding inside the input */
+    font-size: 1.2rem; /* Increase font size for better readability */
+  }
+  
+  .search-box button {
+    padding: 10px 20px; /* Adjust padding for the button */
+    font-size: 1.2rem; /* Increase font size for the button */
+  }
+  

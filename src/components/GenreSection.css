@@ -1,0 +1,94 @@
+body {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-image: url("https://user-images.githubusercontent.com/33485020/108069438-5ee79d80-7089-11eb-8264-08fdda7e0d11.jpg");
+    font-family: 'Roboto', sans-serif;
+    color: white;
+}
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+}
+.content {
+    position: relative;
+    z-index: 1; /* Ensure content is above the overlay */
+    padding: 20px;
+    color: white; /* Example text color */
+}
+.card {
+    margin: 10px;
+    transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+}
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.genre-section {
+    margin-bottom: 40px;
+}
+.carousel-control-prev, .carousel-control-next {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.425); /* Lighter background for controls */
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%);
+}
+.carousel-control-prev {
+    left: -40px;
+}
+.carousel-control-next {
+    right: -40px;
+}
+.carousel-control-prev:hover, .carousel-control-next:hover {
+    background-color: rgba(255, 255, 255, 0.616); /* Lighter hover background */
+}
+.card-img-top {
+    height: 300px;
+    object-fit: cover;
+}
+h1, h2, .card-title {
+    font-weight: 500;
+}
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+.title-box h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+    color: rgb(235, 238, 40);
+    text-shadow: 4px 4px 4px #5e0d03;
+}
+.action-card:hover {
+    background-color: red; /* Red background color for Action genre */
+}
+.drama-card:hover {
+    background-color: yellow; /* Yellow background color for Drama genre */
+}
+.comedy-card:hover {
+    background-color: greenyellow; /* Light yellow-green background color for Comedy genre */
+}
+h1.my-4 {
+    font-size: 4.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+    color: whitesmoke;
+    text-align: center;
+    text-shadow: 4px 4px 4px #5e0d03;
+}
+.card-body {
+    color: #333; /* Dark text color for card bodies */
+}
+
