@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../firebase'; // Import Firestore instance
+import { db } from '../firebase/firebase.js'; // Adjust the path to your firebase.js file
 import { useParams } from 'react-router-dom'; // Import useParams
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import 'bootstrap/dist/js/bootstrap.bundle.min'; // Import Bootstrap JS (bundled with Popper)
-import './GenreSection.css';
+import './GenreSection.css'; // Custom CSS for additional styling
 
-const GenreSection = ({ defaultGenre }) => {
+const GenreSection = ({ searchQuery = '', defaultGenre }) => {
   const { genre: urlGenre } = useParams(); // Get genre from URL parameters
   const genre = urlGenre || defaultGenre; // Use URL genre or default genre
   const [movies, setMovies] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -40,6 +39,7 @@ const GenreSection = ({ defaultGenre }) => {
     groupedMovies.push(filteredMovies.slice(i, i + 4));
   }
 
+  // Function to get dynamic card class based on genre
   const getCardClass = () => {
     switch (genre) {
       case 'action': return 'action-card';
@@ -49,22 +49,15 @@ const GenreSection = ({ defaultGenre }) => {
     }
   };
 
-  // Ensure genre is defined before using it
+  // Capitalize genre title
   const genreTitle = genre ? genre.charAt(0).toUpperCase() + genre.slice(1) : 'Genre';
 
   return (
     <div className="genre-section mb-4">
       <div className="title-box mb-4">
         <h2>{genreTitle}</h2>
-        {/* Add a search input to filter movies */}
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Search movies..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
       </div>
+
       <div id={`${genre}-carousel`} className="carousel slide" data-bs-ride="carousel">
         <div className="carousel-inner">
           {groupedMovies.map((group, index) => (
@@ -73,11 +66,17 @@ const GenreSection = ({ defaultGenre }) => {
                 {group.map((movie, idx) => (
                   <div className="col-md-3 mb-4" key={idx}>
                     <div className={`card ${getCardClass()}`}>
-                      <img src={movie.image} className="card-img-top" alt={movie.title || 'Movie'} />
+                      <img 
+                        src={movie.image || 'default-image-url.jpg'} 
+                        className="card-img-top" 
+                        alt={movie.title || 'Movie'} 
+                      />
                       <div className="card-body">
                         <h5 className="card-title">{movie.title || 'Untitled'}</h5>
                         <p className="card-text">{movie.description || 'No description available'}</p>
-                        <a href={movie.link} className="btn btn-primary" target="_blank" rel="noopener noreferrer">More</a>
+                        {movie.link && (
+                          <a href={movie.link} className="btn btn-primary" target="_blank" rel="noopener noreferrer">More</a>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -86,6 +85,8 @@ const GenreSection = ({ defaultGenre }) => {
             </div>
           ))}
         </div>
+
+        {/* Carousel controls only shown if there are multiple groups */}
         {groupedMovies.length > 1 && (
           <>
             <a className="carousel-control-prev" href={`#${genre}-carousel`} role="button" data-bs-slide="prev">

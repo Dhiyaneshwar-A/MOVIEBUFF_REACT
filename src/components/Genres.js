@@ -10,8 +10,6 @@ const GenreSelection = () => {
         <Link to="/genre/action" className="genre-button">Action</Link>
         <Link to="/genre/drama" className="genre-button">Drama</Link>
         <Link to="/genre/comedy" className="genre-button">Comedy</Link>
-        <Link to="/genre/comedy" className="genre-button">Romance</Link>
-        <Link to="/genre/comedy" className="genre-button">Horror</Link>
         
         {/* Add more genre buttons as needed */}
       </div>
