@@ -1,25 +1,34 @@
-.white-box {
-    background-color: #fff; /* White background for the box */
-    border: 1px solid #ddd; /* Light gray border */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for the box */
-    padding: 20px; /* Padding inside the box */
-  }
-  
-  .white-box h2 {
-    margin-bottom: 20px; /* Space below the heading */
-    color: #333; /* Dark gray color for the heading */
-  }
-  
-  .white-box p {
-    color: #555; /* Medium gray color for the paragraph text */
-  }
-  
-  .container {
-    margin-top: 50px; /* Margin from top for spacing */
-  }
-  
-  .min-vh-100 {
-    min-height: 100vh; /* Ensure container takes full viewport height */
-  }
-  
+.about-us-container {
+  background-color: #f8f9fa; /* Light background for better readability */
+}
+
+.about-us-content {
+  background-color: white; /* White background for content area */
+  border-radius: 10px; /* Rounded corners for the content box */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+}
+
+h1 {
+  font-size: 2.5rem; /* Larger font size for the main heading */
+  font-weight: bold; /* Bold font for emphasis */
+}
+
+h3 {
+  font-size: 1.75rem; /* Slightly smaller heading */
+  color: #007bff; /* Primary color for subheadings */
+}
+
+p, ul {
+  font-size: 1.125rem; /* Medium font size for body text */
+  color: #343a40; /* Dark gray color for text */
+}
+
+ul {
+  list-style-type: disc; /* Bullet points for the list */
+  margin-left: 20px; /* Indentation for the list */
+}
+
+.lead {
+  font-size: 1.25rem; /* Larger font size for lead paragraph */
+  font-weight: 300; /* Lighter font weight for a softer look */
+}

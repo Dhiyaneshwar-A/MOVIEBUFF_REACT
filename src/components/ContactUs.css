@@ -1,20 +1,32 @@
-.white-box {
-    background-color: #fff; /* White background for the box */
-    border: 1px solid #ddd; /* Light gray border */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for the box */
-    padding: 20px; /* Padding inside the box */
-  }
-  
-  .white-box h2 {
-     color: #333; /* Dark gray color for the heading */
-  }
-  
-  .white-box p {
-    color: #555; /* Medium gray color for the paragraph text */
-  }
-  
-  .min-vh-100 {
-    min-height: 100vh; /* Ensure container takes full viewport height */
-  }
-  
+.contact-us-container {
+  background-color: #f8f9fa; /* Light background for better readability */
+}
+
+.contact-us-content {
+  background-color: white; /* White background for content area */
+  border-radius: 10px; /* Rounded corners for the content box */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+}
+
+h1 {
+  font-size: 2.5rem; /* Larger font size for the main heading */
+  font-weight: bold; /* Bold font for emphasis */
+}
+
+p {
+  font-size: 1.125rem; /* Medium font size for body text */
+  color: #343a40; /* Dark gray color for text */
+}
+
+.lead {
+  font-size: 1.25rem; /* Larger font size for lead paragraph */
+  font-weight: 300; /* Lighter font weight for a softer look */
+}
+
+.form-group {
+  margin-bottom: 1.5rem; /* Space between form elements */
+}
+
+button {
+  font-size: 1rem; /* Standard button font size */
+}
