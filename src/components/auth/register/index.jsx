@@ -1,18 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navigate, Link, useNavigate } from 'react-router-dom';
-import { doCreateUserWithEmailAndPassword } from '../../../firebase/auth';
-import { useAuth } from '../../../contexts/authContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { register } from '../../../actions/authActions'; // Redux Thunks
 import logo from '../../../assets/logo.png';
 
 const Register = () => {
     const navigate = useNavigate();
-    const { userLoggedIn } = useAuth();
-
+    const dispatch = useDispatch();
+    const { isAuthenticated, loading, error } = useSelector((state) => state.auth);
+    
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [isRegistering, setIsRegistering] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+
+    useEffect(() => {
+        // Reset error message when the component mounts
+        setErrorMessage('');
+    }, []);
+
+    useEffect(() => {
+        // Handle error from Redux state
+        if (error) {
+            setErrorMessage(error);
+        }
+    }, [error]);
 
     const validatePassword = (password) => {
         const minLength = 6;
@@ -33,7 +45,7 @@ const Register = () => {
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        setErrorMessage(''); // Clear any previous error messages
+        setErrorMessage(''); // Reset the error message
 
         if (password !== confirmPassword) {
             setErrorMessage('Passwords do not match');
@@ -46,31 +58,23 @@ const Register = () => {
             return;
         }
 
-        if (!isRegistering) {
-            setIsRegistering(true);
-            try {
-                await doCreateUserWithEmailAndPassword(email, password);
-                navigate('/home'); // Redirect to home page after successful registration
-            } catch (error) {
-                if (error.code === 'auth/email-already-in-use') {
-                    setErrorMessage('Email is already in use');
-                } else {
-                    setErrorMessage('Failed to create an account. Please try again.');
-                }
-                setIsRegistering(false);
-            }
+        try {
+            await dispatch(register(email, password));
+            navigate('/home'); // Navigate after successful registration
+        } catch (err) {
+            setErrorMessage(err.message); // Handle any error during registration
         }
     };
 
     return (
         <>
-            {userLoggedIn && <Navigate to={'/home'} replace={true} />}
+            {isAuthenticated && <Navigate to={'/home'} replace={true} />}
 
             <main className="vh-80 d-flex justify-content-center align-items-center">
                 <div className="w-50 text-dark p-4 shadow-lg border rounded bg-white" style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>
                     <div className="text-center mb-4">
                         <img src={logo} alt="Logo" className='mb-4' style={{ height: '80px' }} />
-                        <h3 className="text-dark text-xl font-semibold">Create a New Account</h3>
+                        <h3 className="text-dark text-xl font-semibold">Create an Account</h3>
                     </div>
                     <form onSubmit={onSubmit} className="mb-3">
                         <div className="form-group">
@@ -99,7 +103,7 @@ const Register = () => {
                             <label className="font-weight-bold text-dark">Confirm Password</label>
                             <input
                                 type="password"
-                                autoComplete='off'
+                                autoComplete='new-password'
                                 required
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
@@ -108,23 +112,21 @@ const Register = () => {
                         </div>
 
                         {errorMessage && (
-                            <div className="alert alert-danger">{errorMessage}</div>
+                            <div className="alert alert-danger" aria-live="polite">{errorMessage}</div>
                         )}
 
                         <button
                             type="submit"
-                            disabled={isRegistering}
-                            className={`btn btn-primary w-100 ${isRegistering ? 'disabled' : ''}`}
+                            disabled={loading}
+                            className={`btn btn-primary w-100 ${loading ? 'disabled' : ''}`}
                         >
-                            {isRegistering ? 'Signing Up...' : 'Sign Up'}
+                            {loading ? 'Registering...' : 'Register'}
                         </button>
                     </form>
 
                     <p className="text-center">
-                        Already have an account? <Link to={'/'} className="font-weight-bold text-dark">Log in</Link>
+                        Already have an account? <Link to={'/'} className="font-weight-bold text-dark">Sign in</Link>
                     </p>
-
-                    
                 </div>
             </main>
         </>

@@ -12,10 +12,10 @@ import Register from "./components/auth/register";
 import { AuthProvider, useAuth } from "./contexts/authContext";
 import ProtectedRoute from './components/ProtectedRoute'; // Import the ProtectedRoute component
 import GenreSpec from './components/Genrespec';
-
+import { useNavigate } from 'react-router-dom';
 const App = () => {
   const [searchQuery] = useState('');
-
+  
   return (
       <AuthProvider>
         <Router>
@@ -58,10 +58,13 @@ const App = () => {
 
 function UserStatus() {
   const { userLoggedIn, username, logout } = useAuth();
+  const navigate = useNavigate(); // Initialize useNavigate
 
   async function handleLogout() {
     try {
       await logout();
+      navigate('/');
+      window.location.reload();
       // Handle any post-logout actions here
     } catch (error) {
       console.error("Failed to log out", error);

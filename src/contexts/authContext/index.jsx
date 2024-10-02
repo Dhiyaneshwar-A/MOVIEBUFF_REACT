@@ -32,6 +32,7 @@ export function AuthProvider({ children }) {
 
   function logout() {
     return signOut(auth);
+
   }
 
   const value = {
