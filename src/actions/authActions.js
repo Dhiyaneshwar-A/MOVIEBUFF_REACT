@@ -26,6 +26,9 @@ export const signIn = (email, password) => {
             dispatch({ type: SIGNIN_SUCCESS, payload: { uid, email: userEmail, displayName } });
         } catch (error) {
             console.error('SignIn error:', error);
+            // Check for specific error message related to user not existing
+            
+            alert("User does not exist. Please check your email or register.");
             dispatch({ type: SIGNIN_FAILURE, payload: error.message || "Failed to sign in" });
         } finally {
             dispatch({ type: SET_LOADING, payload: false });
@@ -37,26 +40,14 @@ export const signIn = (email, password) => {
 export const signInWithGoogle = () => {
     return async (dispatch) => {
         dispatch({ type: SET_LOADING, payload: true });
-
         try {
-            console.log('Attempting to sign in with Google');
             const user = await doSignInWithGoogle();
-            const { uid, email: userEmail, displayName } = user; // Destructure user data
-
-            // Dispatch success action with user info
-            dispatch({ 
-                type: SIGNIN_SUCCESS, 
-                payload: { uid, email: userEmail, displayName } 
-            });
+            const { uid, email, displayName } = user;
+            dispatch({ type: SIGNIN_SUCCESS, payload: { uid, email, displayName } });
         } catch (error) {
             console.error('Google SignIn error:', error);
-            // Dispatch failure action with error message
-            dispatch({ 
-                type: SIGNIN_FAILURE, 
-                payload: error.message || "Failed to sign in with Google" 
-            });
+            dispatch({ type: SIGNIN_FAILURE, payload: error.message || "Failed to sign in with Google" });
         } finally {
-            // Reset loading state
             dispatch({ type: SET_LOADING, payload: false });
         }
     };
@@ -65,42 +56,38 @@ export const signInWithGoogle = () => {
 // Action to sign out
 export const signOut = () => {
     return async (dispatch) => {
+        dispatch({ type: SET_LOADING, payload: true });
         try {
             await doSignOut();
-            // Dispatch sign out success action
-            
             dispatch({ type: SIGNOUT_SUCCESS });
         } catch (error) {
-            console.error('SignOut failed:', error);
-            // Optionally dispatch a failure action or handle it accordingly
+            console.error('SignOut error:', error);
+        } finally {
+            dispatch({ type: SET_LOADING, payload: false });
         }
     };
 };
 
-// Action to register a new user with email and password
+// Action to register a new user
 export const register = (email, password) => {
     return async (dispatch) => {
         dispatch({ type: SET_LOADING, payload: true });
-
         try {
             const user = await doCreateUserWithEmailAndPassword(email, password);
-            const { uid, email: userEmail, displayName } = user; // Destructure user data
-
-            // Dispatch success action with user info
-            dispatch({ 
-                type: REGISTER_SUCCESS, 
-                payload: { uid, email: userEmail, displayName } 
-            });
+            const { uid, email: userEmail, displayName } = user;
+            dispatch({ type: REGISTER_SUCCESS, payload: { uid, email: userEmail, displayName } });
         } catch (error) {
-            console.error('Registration error:', error);
-            // Dispatch failure action with error message
-            dispatch({ 
-                type: REGISTER_FAILURE, 
-                payload: error.message || "Failed to register" 
-            });
+            console.error('Register error:', error);
+            dispatch({ type: REGISTER_FAILURE, payload: error.message || "Failed to register" });
         } finally {
-            // Reset loading state
             dispatch({ type: SET_LOADING, payload: false });
         }
+    };
+};
+
+// Clear error action
+export const clearError = () => {
+    return {
+        type: 'CLEAR_ERROR',
     };
 };

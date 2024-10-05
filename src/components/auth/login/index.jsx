@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { signIn, signInWithGoogle } from '../../../actions/authActions';
+import { signIn, signInWithGoogle, clearError } from '../../../actions/authActions';
 import logo from '../../../assets/logo.png';
 
 const Login = () => {
@@ -11,12 +11,14 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    // Clear error message on successful sign-in
     useEffect(() => {
-        if (error) {
-            // Clear error on input change
-            dispatch({ type: 'CLEAR_ERROR' });
+        if (isAuthenticated) {
+            dispatch(clearError()); // Clear error when authenticated
+        } else if (error) {
+            alert(error); // Show alert for other errors
         }
-    }, [error, dispatch]);
+    }, [isAuthenticated, error, dispatch]);
 
     const onSubmit = (e) => {
         e.preventDefault();
