@@ -27,12 +27,12 @@
   }
   
   .genre-button:hover {
-    background-color: #0056b3; /* Darker shade on hover */
+    background-color: #bbd0e7; /* Darker shade on hover */
     transform: scale(1.05); /* Slightly scale up on hover */
   }
   
   .genre-button:active {
-    background-color: #004085; /* Even darker shade on click */
+    background-color: #bbd0e7; /* Even darker shade on click */
     transform: scale(0.95); /* Slightly scale down on click */
   }
   
