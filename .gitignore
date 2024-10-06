@@ -9,9 +9,9 @@
 /coverage
 
 
+# .gitignore
 .env
 
-env
 
 # production
 /build
